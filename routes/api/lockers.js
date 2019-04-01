@@ -2,29 +2,33 @@ const express = require("express");
 const mongoose = require("mongoose");
 
 const Locker = mongoose.model("Locker");
-const School = mongoose.model("School");
+
 const router = express.Router();
 
-// Get Lockers at school, x
+// Get Lockers
 router.get("/", async (req, res) => {
   res.send(await Locker.find({}));
 });
-// Add Locker at school,x
+// Add Locker
 router.post("/", async (req, res) => {
-  School.findById({});
+  var StationId = await req.body.stationId;
+  var LockerName = await req.body.lockerName;
+  console.log(`stationId is ${StationId}`);
+  console.log(`locker name is ${LockerName}`);
   var locker = new Locker({
-    schoolName,
-    _atSchool,
-    createdAt: new Date()
+    StationId: StationId,
+    LockerName: LockerName,
+    IsUsed: false,
+    CreatedAt: new Date()
   });
-  Locker.save(function(err) {
+  locker.save(function(err) {
     if (err) res.status(400).send();
     res.status(201).send();
   });
   //res.send("hello-posted");
 });
 
-// Delete Locker at school, x
+// Delete Locker
 router.delete("/:id", async (req, res) => {
   Locker.deleteOne({ _id: req.params.id }, function(err) {
     if (err) res.status(400).send;

@@ -1,39 +1,39 @@
 const express = require("express");
 const mongoose = require("mongoose");
 
-const School = mongoose.model("School");
+const Station = mongoose.model("Station");
 
 const router = express.Router();
 
-// Get Schools
+// Get Stations
 router.get("/", async (req, res) => {
-  res.send(await School.find({}));
+  res.send(await Station.find({}));
 });
-// Add School
+// Add Station
 router.post("/", async (req, res) => {
-  var SchoolName = await req.body.name;
-  var EmailDomain = await req.body.emailDomain;
-  console.log(`schoolname is ${SchoolName}`);
-  console.log(`emailDomain is ${EmailDomain}`);
-  var school = new School({
-    Name: SchoolName,
-    EmailDomain: EmailDomain,
+  var SchoolId = await req.body.schoolId;
+  var Name = await req.body.name;
+  console.log(`schoolId is ${SchoolId}`);
+  console.log(`name is....${Name}`);
+  var station = new Station({
+    AtSchoolId: SchoolId,
+    Name: Name,
     CreatedAt: new Date()
   });
-  school.save(function(err) {
+  station.save(function(err) {
     if (err) res.status(400).send();
     res.status(201).send();
   });
   //res.send("hello-posted");
 });
 
-// Delete School
+// Delete Station
 router.delete("/:id", async (req, res) => {
   res.header(
     "Access-Control-Allow-Methods",
     "GET,PUT,POST,DELETE,PATCH,OPTIONS"
   );
-  School.deleteOne({ _id: req.params.id }, function(err) {
+  Station.deleteOne({ _id: req.params.id }, function(err) {
     if (err) res.status(400).send;
     res.status(200).send();
   });

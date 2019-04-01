@@ -3,7 +3,8 @@ const { Schema } = mongoose;
 
 const lockerSchema = new Schema({
   StationId: { type: Schema.Types.ObjectId, ref: "Station" },
-  IsUsed: boolean,
+  LockerName: String,
+  IsUsed: Boolean,
   createdAt: Date
 });
 

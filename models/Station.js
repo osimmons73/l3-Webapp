@@ -3,6 +3,7 @@ const { Schema } = mongoose;
 
 const stationSchema = new Schema({
   AtSchoolId: { type: Schema.Types.ObjectId, ref: "School" },
+  Name: String,
   CreatedAt: Date
 });
 

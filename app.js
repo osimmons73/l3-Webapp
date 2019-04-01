@@ -21,9 +21,14 @@ const sass = require("node-sass-middleware");
 const multer = require("multer");
 
 const upload = multer({ dest: path.join(__dirname, "uploads") });
+/**
+ * Load in models
+ */
 require("./models/Clicks");
 require("./models/School");
+require("./models/Station");
 require("./models/Locker");
+require("./models/UserLockerMapping");
 /**
  * Load environment variables from .env file, where API keys and passwords are configured.
  */
@@ -399,9 +404,26 @@ app.get(
   }
 );
 const schools = require("./routes/api/schools");
+const stations = require("./routes/api/stations");
 const lockers = require("./routes/api/lockers");
+const userLockerMap = require("./routes/api/userLockerMap");
+
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header(
+    "Access-Control-Allow-Headers",
+    "Access-Control-Allow-Methods,Origin, X-Requested-With, Content-Type, Accept"
+  );
+  res.header(
+    "Access-Control-Allow-Methods",
+    "GET,PUT,POST,DELETE,PATCH,OPTIONS"
+  );
+  next();
+});
 app.use("/api/schools", schools);
+app.use("/api/stations", stations);
 app.use("/api/lockers", lockers);
+app.use("/api/userlockermap", userLockerMap);
 
 /**
  * Error Handler.
