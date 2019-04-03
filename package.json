@@ -1,0 +1,29 @@
+{
+  "name": "l3-webapplication",
+  "version": "1.0.0",
+  "description": "Locker-sharing web application",
+  "main": "app.js",
+  "scripts": {
+    "start": "node server/app.js",
+    "dev": "nodemon server/app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/osimmons73/l3-Webapp.git"
+  },
+  "author": "Gus Jenkins (jenkins6g@gmail.com)",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/osimmons73/l3-Webapp/issues"
+  },
+  "homepage": "https://github.com/osimmons73/l3-Webapp#readme",
+  "dependencies": {
+    "cookie-session": "^1.3.3",
+    "express": "^4.16.4",
+    "mongoose": "^5.4.21",
+    "nodemon": "^1.18.10",
+    "passport": "^0.4.0",
+    "passport-google-oauth20": "^2.0.0"
+  }
+}
