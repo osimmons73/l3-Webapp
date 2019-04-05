@@ -1,18 +1,18 @@
 <template>
   <div id="app">
     <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <UserComponent/>
     <a href="/auth/google" class="google-signin">Google Sign in</a>
   </div>
 </template>
 
 <script>
-import HelloWorld from "./components/HelloWorld.vue";
+import UserComponent from "./components/UserComponent.vue";
 
 export default {
   name: "app",
   components: {
-    HelloWorld
+    UserComponent
   }
 };
 </script>
