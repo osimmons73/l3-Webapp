@@ -1,27 +1,29 @@
 <template>
   <div class="container">
-    <h1>User Signed In</h1>
-    <hr>
-    <p class="error" v-if="error">{{ error }}</p>
-    <div class="user-container"></div>
-    <div
-      class="user"
-      v-for="(u, index) in user"
-      v-bind:item="u"
-      v-bind:index="index"
-      v-bind:key="u._id"
-    >{{u}}</div>
+    <h1 class>Latest User</h1>
+    <hr class>
+    <p class="error" v-if="error">{{error}}</p>
+    <div class="user-container">
+      <div class="user" v-if="user" v-bind="user">
+        <div>{{user}}</div>
+        <div>
+          <a href="api/logout">Sign out</a>
+        </div>
+      </div>
+      <div class="user" v-else>
+        <a href="/auth/google" class="google-signin">Google Sign in</a>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
-//import UserService from "../AuthService";
-UserService = require("../AuthService");
+import UserService from "../AuthService";
 export default {
   name: "UserComponent",
   data() {
     return {
-      user: [],
+      user: "",
       error: "",
       text: ""
     };

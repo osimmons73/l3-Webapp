@@ -2,7 +2,6 @@
   <div id="app">
     <img alt="Vue logo" src="./assets/logo.png">
     <UserComponent/>
-    <a href="/auth/google" class="google-signin">Google Sign in</a>
   </div>
 </template>
 

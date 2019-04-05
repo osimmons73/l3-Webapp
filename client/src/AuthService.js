@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const url = "/api/google/auth";
+const url = "/api/current_user";
 
 class UserService {
   static getUser() {
@@ -8,11 +8,7 @@ class UserService {
       try {
         const res = await axios.get(url);
         const data = res.data;
-        resolve(
-          data.map(user => ({
-            ...user
-          }))
-        );
+        resolve(data);
         console.log(`usere is ${data}`);
       } catch (err) {
         reject(err);
@@ -21,4 +17,4 @@ class UserService {
   }
 }
 
-module.exports = UserService;
+export default UserService;
