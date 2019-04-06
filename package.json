@@ -1,11 +1,13 @@
 {
-  "name": "l3-webapplication",
+  "name": "server",
   "version": "1.0.0",
   "description": "Locker-sharing web application",
   "main": "app.js",
   "scripts": {
     "start": "node server/app.js",
-    "dev": "nodemon server/app.js",
+    "server": "nodemon server/app.js",
+    "client": "npm run serve --prefix client",
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -19,6 +21,7 @@
   },
   "homepage": "https://github.com/osimmons73/l3-Webapp#readme",
   "dependencies": {
+    "concurrently": "^4.1.0",
     "cookie-session": "^1.3.3",
     "express": "^4.16.4",
     "mongoose": "^5.4.21",
