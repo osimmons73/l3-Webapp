@@ -1,19 +1,14 @@
 <template>
-  <div id="app">
-    <div class="container">
-      <User/>
-    </div>
+  <div>
+    <div>station component here</div>
+
+    <router-link to="/select_locker">/select_locker</router-link>
   </div>
 </template>
 
 <script>
-//import UserComponent from "./components/UserComponent.vue";
-import User from "./components/UserComponent.vue";
 export default {
-  name: "app",
-  components: {
-    User
-  }
+  name: "StationComponent"
 };
 </script>
 

@@ -1,19 +1,10 @@
 <template>
-  <div id="app">
-    <div class="container">
-      <User/>
-    </div>
-  </div>
+  <div>Active locker component here</div>
 </template>
 
 <script>
-//import UserComponent from "./components/UserComponent.vue";
-import User from "./components/UserComponent.vue";
 export default {
-  name: "app",
-  components: {
-    User
-  }
+  name: "PaymentComponent"
 };
 </script>
 

@@ -1,19 +1,14 @@
 <template>
-  <div id="app">
-    <div class="container">
-      <User/>
-    </div>
+  <div>
+    <div>locker component here</div>
+
+    <router-link to="/confirm_payment">confirm payment</router-link>
   </div>
 </template>
 
 <script>
-//import UserComponent from "./components/UserComponent.vue";
-import User from "./components/UserComponent.vue";
 export default {
-  name: "app",
-  components: {
-    User
-  }
+  name: "LockerComponent"
 };
 </script>
 
