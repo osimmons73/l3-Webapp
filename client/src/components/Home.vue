@@ -14,7 +14,7 @@
 import { mapGetters, mapActions } from "vuex";
 
 export default {
-  name: "user",
+  name: "home",
   computed: mapGetters(["allUser"]),
   methods: {
     ...mapActions(["getUserInfo"])
