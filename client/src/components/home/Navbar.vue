@@ -22,6 +22,9 @@
         <li class="nav-item">
           <a class="nav-link" href>Contact</a>
         </li>
+        <li class="nav-item">
+          <a class="nav-link" href="auth/google">Login With Google</a>
+        </li>
       </ul>
     </div>
   </nav>

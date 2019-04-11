@@ -3,19 +3,19 @@
     <div class="carousel-inner">
       <div class="carousel-item active">
         <h2>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas commodo mauris eu nunc fringilla tristique.</h2>
-        <img class="testimonial-image" src="../assets/images/smiling-lady.jpg" alt="dog-profile">
+        <img class="testimonial-image" src="../../assets/images/smiling-lady.jpg" alt="dog-profile">
         <em>New York City, New York</em>
       </div>
       <div class="carousel-item">
         <h2
           class="testimonial-text"
         >In fermentum ultricies pretium. Aenean egestas lorem nulla, et condimentum est mattis.</h2>
-        <img class="testimonial-image" src="../assets/images/lady-img.jpg" alt="lady-profile">
+        <img class="testimonial-image" src="../../assets/images/lady-img.jpg" alt="lady-profile">
         <em>Los Angeles, California</em>
       </div>
       <div class="carousel-item">
         <h2>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin maximus.</h2>
-        <img class="testimonial-image" src="../assets/images/smiling-guy.jpg" alt="dog-profile">
+        <img class="testimonial-image" src="../../assets/images/smiling-guy.jpg" alt="dog-profile">
         <em>San Francisco, California</em>
       </div>
     </div>
