@@ -1,18 +1,14 @@
 <template>
-  <div id="app">
-    <HomeComponent/>
+  <div>
+    <div>Payment component here</div>
+
+    <router-link to="/active_locker">L3</router-link>
   </div>
 </template>
 
 <script>
-//import UserComponent from "./components/UserComponent.vue";
-import HomeComponent from "./components/HomeComponent.vue";
-
 export default {
-  name: "app",
-  components: {
-    HomeComponent
-  }
+  name: "PaymentComponent"
 };
 </script>
 
