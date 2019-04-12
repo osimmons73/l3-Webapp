@@ -4,6 +4,7 @@
     <section id="title">
       <div class="container-fluid">
         <Navbar/>
+        <Google/>
         <Title/>
       </div>
     </section>
@@ -42,6 +43,7 @@
 
 <script>
 import Navbar from "./home/Navbar.vue";
+import Google from "./home/Google.vue";
 import Title from "./home/Title.vue";
 import Features from "./home/Features.vue";
 import Testimonials from "./home/Testimonials.vue";
@@ -53,6 +55,7 @@ export default {
   name: "home",
   components: {
     Navbar,
+    Google,
     Title,
     Features,
     Testimonials,
