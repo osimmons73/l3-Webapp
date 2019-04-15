@@ -1,5 +1,8 @@
 <template>
-  <div>Active locker component here</div>
+  <div>
+    <div>Active locker component here</div>
+    <router-link to="/">back to home</router-link>
+  </div>
 </template>
 
 <script>

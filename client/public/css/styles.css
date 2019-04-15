@@ -12,6 +12,9 @@ body {
   color: #fff;
   padding: 5% 0 5% 0;
 }
+.press {
+  padding-bottom: 2.5em;
+}
 h1 {
   font-family: "Montserrat-Black";
   font-size: 3.5rem;

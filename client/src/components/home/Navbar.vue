@@ -1,6 +1,6 @@
 <template>
   <nav class="navbar navbar-expand-lg navbar-dark">
-    <a class="navbar-brand" href>L3 Services</a>
+    <router-link class="navbar-brand" to="/">L3 Services</router-link>
 
     <button
       class="navbar-toggler"
@@ -22,13 +22,32 @@
         <li class="nav-item">
           <a class="nav-link" href>Contact</a>
         </li>
+        <li class="nav-item" v-if="myUser._id">
+          <a class="nav-link" href="/api/logout">Sign Out</a>
+        </li>
+        <li class="nav-item" v-else>
+          <a class="nav-link" href="/auth/google">Sign In</a>
+        </li>
       </ul>
     </div>
   </nav>
 </template>
 
 <script>
-export default {};
+import { mapGetters, mapActions } from "vuex";
+
+export default {
+  name: "Navbar",
+  computed: {
+    ...mapGetters(["myUser"])
+  },
+  methods: {
+    ...mapActions(["getUserInfo"])
+  },
+  created() {
+    this.getUserInfo();
+  }
+};
 </script>
 
 <style>

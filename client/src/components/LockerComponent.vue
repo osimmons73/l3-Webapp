@@ -1,14 +1,16 @@
 <template>
   <div>
+    <NavBar/>
     <div>locker component here</div>
-
-    <router-link to="/confirm_payment">confirm payment</router-link>
+    <router-link to="/payment">confirm payment</router-link>
   </div>
 </template>
 
 <script>
+import NavBar from "./home/Navbar.vue";
 export default {
-  name: "LockerComponent"
+  name: "LockerComponent",
+  components: { NavBar }
 };
 </script>
 

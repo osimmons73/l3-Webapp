@@ -4,7 +4,9 @@
     <section id="title">
       <div class="container-fluid">
         <Navbar/>
-        <Google/>
+        <div class="google" v-if="!myUser._id">
+          <Google/>
+        </div>
         <Title/>
       </div>
     </section>
@@ -51,6 +53,9 @@ import Press from "./home/Press.vue";
 import Pricing from "./home/Pricing.vue";
 import ActionCall from "./home/ActionCall.vue";
 import Footer from "./home/Footer.vue";
+
+import { mapGetters, mapActions } from "vuex";
+
 export default {
   name: "home",
   components: {
@@ -63,6 +68,15 @@ export default {
     Pricing,
     ActionCall,
     Footer
+  },
+  computed: {
+    ...mapGetters(["myUser"])
+  },
+  methods: {
+    ...mapActions(["getUserInfo"])
+  },
+  created() {
+    this.getUserInfo();
   }
 };
 </script>

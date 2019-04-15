@@ -2,7 +2,7 @@
   <div>
     <div>Payment component here</div>
 
-    <router-link to="/active_locker">L3</router-link>
+    <router-link to="/active">L3</router-link>
   </div>
 </template>
 

@@ -1,12 +1,6 @@
 <template>
   <div>
-    <div class="user">
-      <div v-bind="allUser">
-        {{allUser.firstName}}
-        {{allUser.lastName}}
-        {{allUser.emailAddress}}
-      </div>
-    </div>
+    <div class="user">{{myUser}}</div>
   </div>
 </template>
 
@@ -15,7 +9,9 @@ import { mapGetters, mapActions } from "vuex";
 
 export default {
   name: "home",
-  computed: mapGetters(["allUser"]),
+  computed: {
+    ...mapGetters(["myUser"])
+  },
   methods: {
     ...mapActions(["getUserInfo"])
   },

@@ -1,24 +1,24 @@
 <template>
-  <div>
-    <div>station component here</div>
-
-    <router-link to="/select_locker">/select_locker</router-link>
+  <div class="home">
+    <!-- Title -->
+    <section id="title">
+      <div class="container-fluid">
+        <Navbar/>
+      </div>
+    </section>
   </div>
 </template>
 
 <script>
+import Navbar from "./home/Navbar.vue";
+
 export default {
-  name: "StationComponent"
+  name: "station",
+  components: {
+    Navbar
+  }
 };
 </script>
 
 <style>
-#app {
-  font-family: "Avenir", Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
 </style>

@@ -9,7 +9,6 @@ class UserService {
         const res = await axios.get(url);
         const data = res.data;
         resolve(data);
-        console.log(`usere is ${data}`);
       } catch (err) {
         reject(err);
       }
