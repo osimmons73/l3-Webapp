@@ -5,6 +5,8 @@
       <div class="container-fluid">
         <Navbar/>
         <Title/>
+        <h6 class="text-sm-right" v-bind="myUser">Hi {{myUser.firstName}}</h6>
+        <h5 class="text-center">Please Select Locker Station</h5>
       </div>
     </section>
     <div class="container mt-3">
@@ -45,13 +47,17 @@ export default {
   name: "home",
   components: { Navbar },
   computed: {
-    ...mapGetters({ allStations: "station/allStations" })
+    ...mapGetters({ allStations: "station/allStations", myUser: "user/myUser" })
   },
   methods: {
-    ...mapActions({ getStations: "station/getStations" })
+    ...mapActions({
+      getStations: "station/getStations",
+      getUserInfo: "user/getUserInfo"
+    })
   },
   created() {
     this.getStations();
+    this.getUserInfo();
   }
 };
 </script>
