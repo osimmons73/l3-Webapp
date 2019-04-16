@@ -3,6 +3,7 @@ import axios from "axios";
 const url = "/api/current_user";
 
 class UserService {
+  // Get User
   static getUser() {
     return new Promise(async (resolve, reject) => {
       try {
