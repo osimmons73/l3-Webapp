@@ -32,6 +32,13 @@ require("./routes/auth/authRoutes")(app);
 app.get("/", (req, res) => {
   res.send({ bye: "buddy" });
 });
+// Handle production
+if (process.env.EMV === "production") {
+  app.use(express.static(__dirname + "/public/"));
+
+  // Handle Single Page Application
+  app.get(/.*/, (req, res) => res.sendFile(__dirname + "/public/index.html"));
+}
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT);
