@@ -47,17 +47,13 @@ export default {
   name: "home",
   components: { Navbar },
   computed: {
-    ...mapGetters({ allStations: "station/allStations", myUser: "user/myUser" })
+    ...mapGetters(["allStations", "myUser"])
   },
   methods: {
-    ...mapActions({
-      getStations: "station/getStations",
-      getUserInfo: "user/getUserInfo"
-    })
+    ...mapActions(["getStations"])
   },
   created() {
     this.getStations();
-    this.getUserInfo();
   }
 };
 </script>
