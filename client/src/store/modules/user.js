@@ -19,7 +19,7 @@ const getters = {
 const actions = {
   async getUserInfo({ commit }) {
     commit("isLoading", "IsLoading");
-    var response = await axios.get("/api/current_user");
+    var response = await axios.get("api/current_user");
     console.log("from store", response.data);
     commit("setUser", response.data);
     commit("notLoading", "NotLoading");

@@ -30,10 +30,11 @@ app.use("/api/stations", stations);
 require("./routes/auth/authRoutes")(app);
 
 app.get("/", (req, res) => {
-  res.send({ bye: "buddy" });
+  res.send({ server: "running..." });
 });
+
 // Handle production
-if (process.env.EMV === "production") {
+if (process.env.NODE_ENV === "production") {
   app.use(express.static(__dirname + "/public/"));
 
   // Handle Single Page Application
