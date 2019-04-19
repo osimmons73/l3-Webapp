@@ -4,9 +4,7 @@
     <section id="title">
       <div class="container-fluid">
         <Navbar/>
-        <div class="google" v-if="!myUser._id">
-          <Google/>
-        </div>
+        <div class="google" v-if="!myUser._id"></div>
         <Title/>
       </div>
     </section>
