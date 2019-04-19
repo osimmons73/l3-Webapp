@@ -5,9 +5,9 @@ const cookieSession = require("cookie-session");
 const passport = require("passport");
 const keys = require("./config/keys");
 require("./models/Station");
-
+require("./models/UserStationMapping");
 const stations = require("./routes/api/stations");
-
+const userStation = require("./routes/api/userStationMap");
 require("./models/User");
 require("./services/passport");
 
@@ -24,7 +24,7 @@ app.use(
 
 app.use(passport.initialize());
 app.use(passport.session());
-
+app.use("/api/users/stations", userStation);
 app.use("/api/stations", stations);
 
 require("./routes/auth/authRoutes")(app);
