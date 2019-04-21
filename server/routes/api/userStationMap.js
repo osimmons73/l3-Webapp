@@ -1,47 +1,46 @@
 const express = require("express");
 const mongoose = require("mongoose");
 
-const UserLockerMap = mongoose.model("UserLockerMap");
+const UserStationMap = mongoose.model("UserStationMap");
 
 const router = express.Router();
 
-// Get All User-Locker Mappings
+// Get User-Station Mappings
 router.get("/all", async (req, res) => {
-  res.send(await UserLockerMap.find({}));
+  res.send(await UserStationMap.find({}));
 });
 
-// Get User-Locker Mappings
+// Get User-Station Mappings
 router.get("/", async (req, res) => {
   var userId = await req.body.userId;
-  var lockerId = await req.body.lockerId;
+  var stationId = await req.body.stationId;
   res.send(
-    await UserLockerMap.find({
+    await UserStationMap.find({
       UserId: userId,
-      LockerId: lockerId
+      StationId: stationId
     })
   );
 });
-// Add User-Locker Mapping
+// Add User-Station Mapping
 router.post("/", async (req, res) => {
   var userId = await req.body.userId;
-  var lockerId = await req.body.lockerId;
+  var stationId = await req.body.stationId;
   console.log(`UserId is ${userId}`);
-  console.log(`lockerId is ${lockerId}`);
-  var userLockerMap = new UserLockerMap({
+  console.log(`stationId is ${stationId}`);
+  var userStationMap = new UserStationMap({
     UserId: userId,
-    LockerId: lockerId,
+    StationId: stationId,
     StartedAt: new Date()
   });
-  userLockerMap.save(function(err) {
+  userStationMap.save(function(err) {
     if (err) res.status(400).send();
     res.status(201).send();
   });
-  //res.send("hello-posted");
 });
 
 // Delete School
 router.delete("/:id", async (req, res) => {
-  UserLockerMap.deleteOne({ _id: req.params.id }, function(err) {
+  UserStationMap.deleteOne({ _id: req.params.id }, function(err) {
     if (err) res.status(400).send;
     res.status(200).send();
   });

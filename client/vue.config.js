@@ -1,4 +1,6 @@
+const path = require("path");
 module.exports = {
+  outputDir: path.resolve(__dirname, "../server/public"),
   devServer: {
     proxy: {
       "/auth/google": {
@@ -6,7 +8,7 @@ module.exports = {
         ws: true,
         changeOrigin: true
       },
-      "/api/*": {
+      "/api": {
         target: "http://localhost:5000"
       }
     }

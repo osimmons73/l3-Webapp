@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const url = "/api/current_user";
+const url = "api/current_user";
 
 class UserService {
   // Get User
