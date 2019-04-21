@@ -5,9 +5,21 @@ const UserLockerMap = mongoose.model("UserLockerMap");
 
 const router = express.Router();
 
+// Get All User-Locker Mappings
+router.get("/all", async (req, res) => {
+  res.send(await UserLockerMap.find({}));
+});
+
 // Get User-Locker Mappings
 router.get("/", async (req, res) => {
-  res.send(await UserLockerMap.find({}));
+  var userId = await req.body.userId;
+  var lockerId = await req.body.lockerId;
+  res.send(
+    await UserLockerMap.find({
+      UserId: userId,
+      LockerId: lockerId
+    })
+  );
 });
 // Add User-Locker Mapping
 router.post("/", async (req, res) => {
