@@ -1,19 +1,21 @@
 const express = require("express");
 const cors = require("cors");
+const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const cookieSession = require("cookie-session");
 const passport = require("passport");
 const keys = require("./config/keys");
 require("./models/Station");
-
+require("./models/UserStationMapping");
 const stations = require("./routes/api/stations");
-
+const userStation = require("./routes/api/userStationMap");
 require("./models/User");
 require("./services/passport");
 
 mongoose.connect(keys.mongoURI);
 
 const app = express();
+app.use(bodyParser.json());
 app.use(cors());
 app.use(
   cookieSession({
@@ -24,7 +26,7 @@ app.use(
 
 app.use(passport.initialize());
 app.use(passport.session());
-
+app.use("/api/users/stations", userStation);
 app.use("/api/stations", stations);
 
 require("./routes/auth/authRoutes")(app);
