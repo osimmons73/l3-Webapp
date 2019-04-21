@@ -26,7 +26,7 @@
           <a class="nav-link" href="/api/logout">Sign Out</a>
         </li>
         <li class="nav-item" v-else>
-          <a class="nav-link" href="/auth/google">Sign In</a>
+          <a class="nav-link" href="/auth/google">Sign In with Google</a>
         </li>
       </ul>
     </div>
