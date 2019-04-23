@@ -47,7 +47,7 @@ const actions = {
     commit("isLoading", "IsLoading");
     console.log("loading to set station");
     console.log(state.user.assignedStation);
-    if (!state.user.assignedStation) {
+    if (state.user.assignedStation.length == 0) {
       try {
         console.log("in try block");
         var response = await UserService.insertMyUserStation(

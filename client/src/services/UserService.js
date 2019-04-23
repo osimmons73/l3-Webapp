@@ -1,7 +1,7 @@
 import axios from "axios";
 
-const STATION_USER_BASE_URL = "api/users/stations";
-const LOCKER_BASE_URL = "api/users/lockers";
+const STATION_USER_BASE_URL = "api/users/stations/";
+const LOCKER_BASE_URL = "api/users/lockers/";
 class UserService {
   // Get All User-Station Mappings
   static getAllUsersStations() {
@@ -20,7 +20,7 @@ class UserService {
     console.log("station service");
     try {
       console.log("here is my id guy", id);
-      const res = await axios.get(`${STATION_USER_BASE_URL}/${id.userId}`);
+      const res = await axios.get(`${STATION_USER_BASE_URL}${id.userId}`);
       console.log("response data", res.data);
       return res.data;
     } catch (error) {
@@ -43,7 +43,7 @@ class UserService {
   static getAllUsersLockers() {
     return new Promise(async (resolve, reject) => {
       try {
-        const res = await axios.get(`${LOCKER_BASE_URL}/all`);
+        const res = await axios.get(`${LOCKER_BASE_URL}all`);
         const data = res.data;
         resolve(data);
       } catch (error) {

@@ -24,7 +24,7 @@
               class="btn btn-primary"
               role="button"
               aria-pressed="true"
-              to="/station"
+              to="/locker"
             >Click to Select Station</router-link>
             <div class="card-body">
               <h5 class="card-title">{{station.Name}}</h5>
