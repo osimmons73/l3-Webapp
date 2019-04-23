@@ -11,13 +11,14 @@ router.get("/all", async (req, res) => {
 });
 
 // Get User-Station Mappings
-router.get("/", async (req, res) => {
-  var userId = await req.body.userId;
-  var stationId = await req.body.stationId;
+router.get("/:id", async (req, res) => {
+  var userId = await req.params.id;
+
+  console.log("user:", userId);
+
   res.send(
     await UserStationMap.find({
-      UserId: userId,
-      StationId: stationId
+      UserId: userId
     })
   );
 });
@@ -25,7 +26,7 @@ router.get("/", async (req, res) => {
 router.post("/", async (req, res) => {
   var userId = await req.body.userId;
   var stationId = await req.body.stationId;
-  console.log(`UserId is ${userId}`);
+  console.log(`Creating station/user mapping- UserId is ${userId}`);
   console.log(`stationId is ${stationId}`);
   var userStationMap = new UserStationMap({
     UserId: userId,

@@ -11,24 +11,21 @@ class UserService {
         const data = res.data;
         resolve(data);
       } catch (error) {
-        reject(err);
+        reject(error);
       }
     });
   }
   // Get My User-Station Mapping
-  static getMyStation(userId, stationId) {
-    return new Promise(async (resolve, reject) => {
-      try {
-        const res = await axios.get(STATION_USER_BASE_URL, {
-          userId,
-          stationId
-        });
-        const data = res.data;
-        resolve(data);
-      } catch (error) {
-        reject(err);
-      }
-    });
+  static async getMyStation(id) {
+    console.log("station service");
+    try {
+      console.log("here is my id guy", id);
+      const res = await axios.get(`${STATION_USER_BASE_URL}/${id.userId}`);
+      console.log("response data", res.data);
+      return res.data;
+    } catch (error) {
+      console.error(error);
+    }
   }
   // Create My User-Station Mapping
   static insertMyUserStation(userId, stationId) {
@@ -50,7 +47,7 @@ class UserService {
         const data = res.data;
         resolve(data);
       } catch (error) {
-        reject(err);
+        reject(error);
       }
     });
   }
@@ -65,7 +62,7 @@ class UserService {
         const data = res.data;
         resolve(data);
       } catch (error) {
-        reject(err);
+        reject(error);
       }
     });
   }
