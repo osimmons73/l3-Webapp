@@ -6,9 +6,13 @@ const cookieSession = require("cookie-session");
 const passport = require("passport");
 const keys = require("./config/keys");
 require("./models/Station");
+require("./models/Locker");
 require("./models/UserStationMapping");
+require("./models/UserLockerMapping");
 const stations = require("./routes/api/stations");
+const lockers = require("./routes/api/lockers");
 const userStation = require("./routes/api/userStationMap");
+const userLocker = require("./routes/api/userLockerMap");
 require("./models/User");
 require("./services/passport");
 
@@ -27,7 +31,10 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 app.use("/api/users/stations", userStation);
+app.use("/api/users/lockers", userLocker);
+
 app.use("/api/stations", stations);
+app.use("/api/lockers", lockers);
 
 require("./routes/auth/authRoutes")(app);
 

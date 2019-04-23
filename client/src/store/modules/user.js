@@ -8,7 +8,8 @@ const state = {
     firstName: "",
     lastName: "",
     emailAddress: "",
-    assignedStation: ""
+    assignedStation: "",
+    assignedLocker: ""
   },
   load_status: "NotLoading"
 };
@@ -38,9 +39,9 @@ const actions = {
   },
   async getMyStation({ commit }) {
     commit("isLoading", "IsLoading");
-    var response = await UserService.getMyStation(state.user._id);
-    console.log(`My station data: ${response.data}`);
-    commit("setMyStation,response.data");
+    var responseStation = await UserService.getMyStation(state.user._id);
+    //console.log(`My station data: ${response}`);
+    commit("settingStation", responseStation);
     commit("notLoading", "NotLoading");
   },
   async setMyStation({ commit }, stationId) {
@@ -61,6 +62,21 @@ const actions = {
       commit("settingStation", stationId);
     }
     commit("notLoading", "NotLoading");
+  },
+  async getMyLocker({ commit }, lockerId) {
+    commit("isLoading", "IsLoading");
+    var responseLocker = await UserService.getMyLocker(state.user._id);
+    commit("settingLocker", responseLocker);
+    commit("notLoading", "NotLoading");
+  },
+  async setMyLocker({ commit }, lockerId) {
+    if (state.user.assignedLocker.length == 0) {
+      var response = await UserService.insertMyUserLocker(
+        state.user._id,
+        lockerId
+      );
+      commit("settingLocker", lockerId);
+    }
   }
 };
 
@@ -75,6 +91,9 @@ const mutations = {
   },
   settingStation: (state, s) => {
     state.user.assignedStation = s;
+  },
+  settingLocker: (state, l) => {
+    state.user.assignedLocker = l;
   },
   isLoading: (state, l) => (state.load_status = l),
   notLoading: (state, l) => (state.load_status = l)

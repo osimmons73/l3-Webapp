@@ -39,7 +39,7 @@ router.post("/", async (req, res) => {
   });
 });
 
-// Delete School
+// Delete User-Station Mapping
 router.delete("/:id", async (req, res) => {
   UserStationMap.deleteOne({ _id: req.params.id }, function(err) {
     if (err) res.status(400).send;
