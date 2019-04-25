@@ -1,41 +1,11 @@
 <template>
-  <div>
-    <!-- Title -->
-    <section id="title">
-      <div class="container-fluid">
-        <Navbar/>
-        <Title/>
-        <h6 class="text-sm-right" v-bind="myUser">Hi {{myUser.firstName}}</h6>
-        <h5 class="text-center">Please Select Locker</h5>
-      </div>
-    </section>
-    <div class="container mt-3">
-      <div class="row">
-        <div class="card-deck" style="width:800px; margin:0 auto;">
-          <div
-            class="card mb-4"
-            style="min-width: 18rem; max-width: 18rem;width:800px; margin:0 auto;"
-            v-for="locker in allLockers"
-            :key="locker._id"
-          >
-            <router-link
-              @click.native="selectLocker(locker._id,$event)"
-              style="height:8em;"
-              class="btn btn-primary"
-              role="button"
-              aria-pressed="true"
-              to="/payment"
-            >Click to Select Locker</router-link>
-            <div class="card-body">
-              <h5 class="card-title">{{locker.LockerName}}</h5>
-              <p class="card-text">Station ID: {{locker.StationId}}</p>
-              <p class="card-text">In Use: {{locker.IsUsed}}</p>
-              <p class="card-text">
-                <small class="text-muted">Powered By L3</small>
-              </p>
-            </div>
-          </div>
-        </div>
+  <div class="container">
+    <div id="app-time">
+      <div class="timer">
+        <div>Time Remaining</div>
+        <span class="minute">{{ minutes }}</span>
+        <span>:</span>
+        <span class="seconds">{{ seconds }}</span>
       </div>
     </div>
   </div>
@@ -47,26 +17,127 @@ import UserService from "../services/UserService.js";
 import LockerService from "../services/LockerService.js";
 import Navbar from "./home/Navbar.vue";
 import Title from "./home/Title.vue";
+import feather from "feather-icons";
+
 export default {
-  name: "home",
-  components: { Navbar },
-  computed: {
-    ...mapGetters(["allLockers", "myUser"])
+  data: function() {
+    return {
+      timer: null,
+      totalTime: 25 * 60,
+      resetButton: false,
+      title: "Countdown to rest time!",
+      edit: false
+    };
   },
   methods: {
-    ...mapActions(["getLockers", "setMyLocker"]),
-    selectLocker: async function(lockerId, event) {
-      // `this` inside methods points to the Vue instance
-      console.log("seting my locker from component");
-
-      await this.setMyLocker(lockerId);
+    startTimer: function() {
+      this.timer = setInterval(() => this.countdown(), 1000); //1000ms = 1 second
+      this.resetButton = true;
+    },
+    stopTimer: function() {
+      clearInterval(this.timer);
+      this.timer = null;
+      this.resetButton = true;
+    },
+    resetTimer: function() {
+      this.totalTime = 25 * 60;
+      clearInterval(this.timer);
+      this.timer = null;
+      this.resetButton = false;
+    },
+    editTimer: function() {
+      this.edit = true;
+    },
+    padTime: function(time) {
+      return (time < 10 ? "0" : "") + time;
+    },
+    countdown: function() {
+      this.totalTime--;
     }
   },
-  created() {
-    this.getLockers();
+  computed: {
+    minutes: function() {
+      const minutes = Math.floor(this.totalTime / 60);
+      return this.padTime(minutes);
+    },
+    seconds: function() {
+      const seconds = this.totalTime - this.minutes * 60;
+      return this.padTime(seconds);
+    }
+  },
+  mounted() {
+    feather.replace();
+    this.startTimer();
   }
 };
 </script>
 
 <style>
+/* @import "compass";
+@import "susy"; */
+/* $primary-color: #FD7014;
+$secondary-color: #393E46;
+$background-color: #222831;
+$text-color: #EEEEEE; */
+
+html {
+  font-size: 0.3em;
+}
+
+.container {
+  height: 100vh;
+  width: 100%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  margin: auto auto;
+  padding: 0%;
+}
+
+#app-time {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0%;
+}
+/* & > * {
+      margin-bottom: 2rem;
+    } */
+/* } */
+.timer {
+  font-size: 9rem;
+  color: #eeeeee;
+}
+.controls {
+  display: flex;
+  justify-content: space-evenly;
+  width: 100%;
+
+  color: #fd7014;
+  transition: 0.1s ease;
+}
+/* :hover {
+  cursor: pointer;
+  transform: scale(1.2);
+} */
+
+.input {
+  background-color: #393e46;
+  border: none;
+  font-size: 2rem;
+  padding: 1em;
+  text-align: center;
+  color: #eeeeee;
+}
+
+/* .fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.5s;
+}
+.fade-enter,
+.fade-leave-to {
+  opacity: 0;
+} */
 </style>
