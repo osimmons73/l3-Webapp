@@ -1,4 +1,5 @@
 import Vue from "vue";
+import './plugins/vuetify'
 import App from "./App.vue";
 import store from "./store/index";
 import VueRouter from "vue-router";
@@ -13,6 +14,7 @@ import LockerComponent from "./components/LockerComponent.vue";
 import PaymentComponent from "./components/PaymentComponent.vue";
 import InUseComponent from "./components/InUseComponent";
 import Home from "./components/Home.vue";
+import School from "./components/admin/SchoolComponent";
 
 const routes = [
   { path: "/active", component: InUseComponent },
@@ -24,7 +26,8 @@ const routes = [
     meta: { requiresAuth: true }
   },
   { path: "/test", component: Home },
-  { path: "/", component: HomeComponent }
+  { path: "/", component: HomeComponent },
+  { path: "/school", component: School }
 ];
 
 const router = new VueRouter({
