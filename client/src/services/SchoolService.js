@@ -26,7 +26,7 @@ class SchoolService {
   }
   // Delete School
   static deleteSchool(id) {
-    return axios.delete(`${url}${id}`);
+    return axios.delete(`${url}/${id}`);
   }
 }
 

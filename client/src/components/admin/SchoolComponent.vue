@@ -8,7 +8,7 @@
           <v-container fluid>
             <v-layout row wrap>
               <v-flex xs12>
-                <v-text-field label="University Name" v-model="name" @input="up"></v-text-field>
+                <v-text-field label="University Name" v-model="name"></v-text-field>
               </v-flex>
               <v-flex xs6>
                 <v-btn @click="resetName">Clear Name Field</v-btn>
@@ -18,7 +18,7 @@
                 {{name}}
               </v-flex>
               <v-flex xs12>
-                <v-text-field label="Accepted Domains" v-model="domain" @input="up"></v-text-field>
+                <v-text-field label="Accepted Domains" v-model="domain"></v-text-field>
               </v-flex>
               <v-flex xs6>
                 <v-btn @click="resetDomain">Clear Domain Field</v-btn>
@@ -45,7 +45,13 @@
         v-bind:index="index"
         v-bind:key="school._id"
       >
-        {{`${school.CreatedAt.getMonth()}/${school.CreatedAt.getDate()}/${school.CreatedAt.getFullYear()}`}}
+        <div>
+          <div>{{`${school.CreatedAt.getMonth()}/${school.CreatedAt.getDate()}/${school.CreatedAt.getFullYear()}`}}</div>
+          <div style="  text-align: right;">
+            <i v-on:click="deleteSchool(school._id)" class="fas fa-trash-alt"></i>
+          </div>
+        </div>
+
         <p class="text">{{school.Name}}</p>
         <p class="text">Accepted Email Domains: {{school.EmailDomain}}</p>
       </div>
@@ -81,12 +87,20 @@ export default {
         this.domain = "";
         this.schools = await SchoolService.getSchools();
       }
+    },
+    async deleteSchool(id) {
+      try {
+        await SchoolService.deleteSchool(id);
+        this.schools = await SchoolService.getSchools();
+      } catch (err) {
+        this.error = err.message;
+      }
     }
   },
   async created() {
     try {
       this.schools = await SchoolService.getSchools();
-    } catch (error) {
+    } catch (err) {
       this.error = err.message;
     }
   }
