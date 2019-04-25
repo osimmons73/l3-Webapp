@@ -11,13 +11,11 @@ router.get("/all", async (req, res) => {
 });
 
 // Get User-Locker Mappings
-router.get("/", async (req, res) => {
-  var userId = await req.body.userId;
-  var lockerId = await req.body.lockerId;
+router.get("/:id", async (req, res) => {
+  var userId = await req.params.id;
   res.send(
     await UserLockerMap.find({
-      UserId: userId,
-      LockerId: lockerId
+      UserId: userId
     })
   );
 });
@@ -39,7 +37,7 @@ router.post("/", async (req, res) => {
   //res.send("hello-posted");
 });
 
-// Delete School
+// Delete User-locker mapping
 router.delete("/:id", async (req, res) => {
   UserLockerMap.deleteOne({ _id: req.params.id }, function(err) {
     if (err) res.status(400).send;
