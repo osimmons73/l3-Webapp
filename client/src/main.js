@@ -1,4 +1,5 @@
 import Vue from "vue";
+import "./plugins/vuetify";
 import App from "./App.vue";
 import store from "./store/index";
 import VueRouter from "vue-router";
@@ -13,7 +14,9 @@ import LockerComponent from "./components/LockerComponent.vue";
 import PaymentComponent from "./components/PaymentComponent.vue";
 import InUseComponent from "./components/InUseComponent";
 import Home from "./components/Home.vue";
-
+import School from "./components/admin/SchoolComponent";
+import Station from "./components/admin/StationComponent";
+import Locker from "./components/admin/LockComponent";
 const routes = [
   { path: "/active", component: InUseComponent },
   { path: "/payment", component: PaymentComponent },
@@ -23,7 +26,10 @@ const routes = [
     component: StationComponent,
     meta: { requiresAuth: true }
   },
-  { path: "/test", component: Home },
+  { path: "/test", component: Station },
+  { path: "/admin/school", name: "adminSchool", component: School },
+  { path: "/admin/stations/:id", name: "adminStation", component: Station },
+  { path: "/admin/lockers/:id", name: "adminLocker", component: Locker },
   { path: "/", component: HomeComponent }
 ];
 

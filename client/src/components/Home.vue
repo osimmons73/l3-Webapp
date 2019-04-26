@@ -78,7 +78,7 @@ export default {
 /* $primary-color: #FD7014;
 $secondary-color: #393E46;
 $background-color: #222831;
-$text-color: #EEEEEE; */
+$text-color: #EEEEEE; 
 
 html {
   font-size: 0.3em;
@@ -102,10 +102,10 @@ html {
   align-items: center;
   margin: 0%;
 }
-/* & > * {
+& > * {
       margin-bottom: 2rem;
     } */
-/* } */
+/* }
 .timer {
   font-size: 9rem;
   color: #eeeeee;
@@ -118,10 +118,10 @@ html {
   color: #fd7014;
   transition: 0.1s ease;
 }
-/* :hover {
+:hover {
   cursor: pointer;
   transform: scale(1.2);
-} */
+}
 
 .input {
   background-color: #393e46;
@@ -132,7 +132,7 @@ html {
   color: #eeeeee;
 }
 
-/* .fade-enter-active,
+.fade-enter-active,
 .fade-leave-active {
   transition: opacity 0.5s;
 }

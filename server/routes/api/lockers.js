@@ -9,6 +9,12 @@ const router = express.Router();
 router.get("/", async (req, res) => {
   res.send(await Locker.find({}));
 });
+// Get Locker by Id
+router.get("/:id", async (req, res) => {
+  const stationId = await req.params.id;
+  res.send(await Locker.find({ StationId: stationId }));
+});
+
 // Add Locker
 router.post("/", async (req, res) => {
   var StationId = await req.body.stationId;
