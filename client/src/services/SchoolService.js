@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const url = "api/schools";
+const url = "/api/schools";
 
 class SchoolService {
   // Get Schools

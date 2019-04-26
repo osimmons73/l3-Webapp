@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const url = "api/lockers";
+const url = "/api/lockers";
 
 class LockerService {
   // Get Lockers
@@ -9,8 +9,24 @@ class LockerService {
       const res = await axios.get(url);
       const data = res.data;
       return data;
-    } catch (error) {}
+    } catch (error) {
+      conole.error(error);
+    }
   }
+  // Get Locker by Id
+  static async getLockersBySchoolId(id) {
+    try {
+      const res = await axios.get(`${url}/${id}`);
+      const data = res.data;
+      return data.map(locker => ({
+        ...locker,
+        CreatedAt: new Date(locker.CreatedAt)
+      }));
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
   // Create Locker
   static async insertLocker(stationId, lockerName) {
     return await axios.post(url, {
@@ -20,7 +36,7 @@ class LockerService {
   }
   // Delete Locker
   static deleteLocker(id) {
-    return axios.delete(`${url}${id}`);
+    return axios.delete(`${url}/${id}`);
   }
 }
 

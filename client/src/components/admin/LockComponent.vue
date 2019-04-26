@@ -1,39 +1,30 @@
 <template>
   <div class="container">
-    <h1>Latest Schools here</h1>
+    <h1>Latest Lockers here</h1>
+    <!-- CREATE SCHOOL HERE -->
     <a @click="$router.go(-1)">
-      <p class="text">Back to Home</p>
+      <p class="text">Back to Stations</p>
     </a>
 
-    <!-- CREATE SCHOOL HERE -->
+    <router-link :to="{ name: 'adminStation'}"></router-link>
     <div class="create-school">
       <v-card color="grey lighten-4" flat>
         <v-card-text>
           <v-container fluid>
             <v-layout row wrap>
               <v-flex xs12>
-                <v-text-field label="University Name" v-model="name"></v-text-field>
+                <v-text-field label="Locker Name" v-model="name"></v-text-field>
               </v-flex>
               <v-flex xs6>
                 <v-btn @click="resetName">Clear Name Field</v-btn>
               </v-flex>
               <v-flex xs6>
-                University Name:
+                Locker Name:
                 {{name}}
-              </v-flex>
-              <v-flex xs12>
-                <v-text-field label="Accepted Domains" v-model="domain"></v-text-field>
-              </v-flex>
-              <v-flex xs6>
-                <v-btn @click="resetDomain">Clear Domain Field</v-btn>
-              </v-flex>
-              <v-flex xs6>
-                Domains (e.g. @nova.edu):
-                {{domain}}
               </v-flex>
             </v-layout>
             <v-flex xs12>
-              <v-btn @click="insertSchool">Add School</v-btn>
+              <v-btn @click="insertLocker">Add Locker</v-btn>
             </v-flex>
           </v-container>
         </v-card-text>
@@ -44,67 +35,63 @@
     <div class="school-container">
       <div
         class="school"
-        v-for="(school,index) in schools"
-        v-bind:item="school"
+        v-for="(locker,index) in lockers"
+        v-bind:item="locker"
         v-bind:index="index"
-        v-bind:key="school._id"
+        v-bind:key="locker._id"
       >
         <div>
-          <div>{{`${school.CreatedAt.getMonth()}/${school.CreatedAt.getDate()}/${school.CreatedAt.getFullYear()}`}}</div>
+          <div>{{`${locker.CreatedAt.getMonth()}/${locker.CreatedAt.getDate()}/${locker.CreatedAt.getFullYear()}`}}</div>
           <div style="  text-align: right;">
-            <i v-on:click="deleteSchool(school._id)" class="fas fa-trash-alt"></i>
+            <i v-on:click="deleteLocker(locker._id)" class="fas fa-trash-alt"></i>
           </div>
         </div>
-        <router-link :to="{ name: 'adminStation', params: { id: school._id }}">
-          <p class="text">{{school.Name}}</p>
-          <p class="text">Accepted Email Domains: {{school.EmailDomain}}</p>
-        </router-link>
+        <p class="text">{{locker.LockerName}}</p>
+        <p class="text">Is in use: {{locker.IsUsed}}</p>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import SchoolService from "../../services/SchoolService.js";
+import LockerService from "../../services/LockerService.js";
 export default {
-  name: "SchoolComponent",
+  name: "LockerComponent",
+  props: ["Id"],
   data() {
     return {
-      schools: [],
+      lockers: [],
       error: "",
       name: "",
-      domain: ""
+      id: "abc"
     };
   },
   methods: {
     resetName() {
       this.name = "";
     },
-    resetDomain() {
-      this.domain = "";
-    },
-    async insertSchool() {
-      if (this.name == "" || this.domain == "") {
-        this.error = "Name and Domain Field Cannot be empty, smh!";
+    async insertLocker() {
+      if (this.name == "") {
+        this.error = "Name field Cannot be empty, smh yo!";
       } else {
-        await SchoolService.insertSchool(this.name, this.domain);
+        await LockerService.insertLocker(this.id, this.name);
         this.name = "";
-        this.domain = "";
-        this.schools = await SchoolService.getSchools();
+        this.lockers = await LockerService.getLockersBySchoolId(this.id);
       }
     },
-    async deleteSchool(id) {
+    async deleteLocker(id) {
       try {
-        await SchoolService.deleteSchool(id);
-        this.schools = await SchoolService.getSchools();
+        await LockerService.deleteLocker(id);
+        this.lockers = await LockerService.getLockersBySchoolId(this.id);
       } catch (err) {
         this.error = err.message;
       }
     }
   },
   async created() {
+    this.id = this.$route.params.id;
     try {
-      this.schools = await SchoolService.getSchools();
+      this.lockers = await LockerService.getLockersBySchoolId(this.id);
     } catch (err) {
       this.error = err.message;
     }

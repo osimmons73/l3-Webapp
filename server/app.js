@@ -46,7 +46,6 @@ app.use(passport.session());
  */
 app.use("/api/users/stations", userStation);
 app.use("/api/users/lockers", userLocker);
-
 app.use("/api/stations", stations);
 app.use("/api/lockers", lockers);
 app.use("/api/schools", schools);
