@@ -1,0 +1,76 @@
+<template>
+  <div>
+    <!-- Title -->
+    <section id="title">
+      <div class="container-fluid">
+        <Navbar/>
+        <Title/>
+        <h6 class="text-sm-right" v-bind="myUser">Hi {{myUser.firstName}}</h6>
+        <h5 class="text-center">Please Select Locker</h5>
+      </div>
+    </section>
+    <h1>Latest Lockers here</h1>
+    <!-- CREATE SCHOOL HERE -->
+    <a @click="$router.go(-1)">
+      <p class="text">Back to Stations</p>
+    </a>
+
+    <hr>
+    <p class="error" v-if="error">{{error}}</p>
+    <div class="school-container">
+      <div
+        class="school"
+        v-for="(locker,index) in lockers"
+        v-bind:item="locker"
+        v-bind:index="index"
+        v-bind:key="locker._id"
+      >
+        <p class="text">{{locker.LockerName}}</p>
+        <p class="text">Is in use: {{locker.IsUsed}}</p>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+import { mapGetters, mapActions } from "vuex";
+import UserService from "../../services/UserService.js";
+import LockerService from "../../services/LockerService.js";
+import Navbar from "../home/Navbar.vue";
+import Title from "../home/Title.vue";
+export default {
+  name: "home",
+  data() {
+    return {
+      lockers: [],
+      error: "",
+      name: "",
+      schoolId: "",
+      stationId: ""
+    };
+  },
+  components: { Navbar },
+  computed: {
+    ...mapGetters(["myUser"])
+  },
+  // methods: {
+  //   ...mapActions(["getLockers", "setMyLocker"]),
+  //   selectLocker: async function(lockerId, event) {
+  //     // `this` inside methods points to the Vue instance
+  //     //await this.setMyLocker(lockerId);
+  //   }
+  // },
+  async created() {
+    this.schoolId = this.$route.params.id;
+    this.stationId = this.$route.params.stationId;
+    try {
+      this.lockers = await LockerService.getLockersBySchoolId(this.stationId);
+    } catch (err) {
+      this.error = err.message;
+    }
+  }
+};
+</script>
+
+<style>
+</style>
