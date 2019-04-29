@@ -23,7 +23,7 @@ class LockerService {
         CreatedAt: new Date(locker.CreatedAt)
       }));
     } catch (error) {
-      console.error(error);
+      throw error;
     }
   }
 

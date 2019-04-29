@@ -23,8 +23,6 @@ router.get("/:id", async (req, res) => {
 router.post("/", async (req, res) => {
   var userId = await req.body.userId;
   var lockerId = await req.body.lockerId;
-  console.log(`UserId is ${userId}`);
-  console.log(`lockerId is ${lockerId}`);
   var userLockerMap = new UserLockerMap({
     UserId: userId,
     LockerId: lockerId,

@@ -19,8 +19,6 @@ router.get("/:id", async (req, res) => {
 router.post("/", async (req, res) => {
   var StationId = await req.body.stationId;
   var LockerName = await req.body.lockerName;
-  console.log(`stationId is ${StationId}`);
-  console.log(`locker name is ${LockerName}`);
   var locker = new Locker({
     StationId: StationId,
     LockerName: LockerName,

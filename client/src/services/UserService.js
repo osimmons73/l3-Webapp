@@ -1,7 +1,7 @@
 import axios from "axios";
 
-const STATION_USER_BASE_URL = "api/users/stations/";
-const LOCKER_BASE_URL = "api/users/lockers/";
+const STATION_USER_BASE_URL = "/api/users/stations/";
+const LOCKER_BASE_URL = "/api/users/lockers/";
 class UserService {
   // Get All User-Station Mappings
   static async getAllUsersStations() {
@@ -9,18 +9,17 @@ class UserService {
       const res = await axios.get(`${STATION_USER_BASE_URL}/all`);
       const data = res.data;
       return data;
-    } catch (error) {}
+    } catch (error) {
+      throw error;
+    }
   }
   // Get My User-Station Mapping
   static async getMyStation(id) {
-    console.log("station service");
     try {
-      console.log("here is my id guy", id);
       const res = await axios.get(`${STATION_USER_BASE_URL}${id.userId}`);
-      console.log("response data", res.data);
       return res.data;
     } catch (error) {
-      console.error(error);
+      throw error;
     }
   }
   // Create My User-Station Mapping
@@ -42,11 +41,11 @@ class UserService {
       const data = res.data;
       return data;
     } catch (error) {
-      return data;
+      throw error;
     }
   }
   // Get My User-Locker Mapping
-  static async getMyLocker(userId) {
+  static async getMyLocker(userId, lockerId) {
     try {
       const res = await axios.get(LOCKER_BASE_URL, {
         userId,
@@ -55,7 +54,7 @@ class UserService {
       const data = res.data;
       return data;
     } catch (error) {
-      console.log(error);
+      throw error;
     }
   }
 

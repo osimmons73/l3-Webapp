@@ -3,16 +3,14 @@ import axios from "axios";
 const url = "/api/stations";
 class StationService {
   // Get Stations
-  static getStation() {
-    return new Promise(async (resolve, reject) => {
-      try {
-        const res = await axios.get(url);
-        const data = res.data;
-        resolve(data);
-      } catch (error) {
-        reject(err);
-      }
-    });
+  static async getStation() {
+    try {
+      const res = await axios.get(url);
+      const data = res.data;
+      return data;
+    } catch (error) {
+      throw error;
+    }
   }
   static async getStationById(id) {
     try {
@@ -22,8 +20,8 @@ class StationService {
         ...station,
         CreatedAt: new Date(station.CreatedAt)
       }));
-    } catch (err) {
-      console.error(err);
+    } catch (error) {
+      throw error;
     }
   }
   // Create Station

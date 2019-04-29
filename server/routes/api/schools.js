@@ -13,8 +13,6 @@ router.get("/", async (req, res) => {
 router.post("/", async (req, res) => {
   var SchoolName = await req.body.name;
   var EmailDomain = await req.body.emailDomain;
-  console.log(`schoolname is ${SchoolName}`);
-  console.log(`emailDomain is ${EmailDomain}`);
   var school = new School({
     Name: SchoolName,
     EmailDomain: EmailDomain,

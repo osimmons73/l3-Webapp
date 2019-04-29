@@ -13,7 +13,7 @@ class SchoolService {
         CreatedAt: new Date(school.CreatedAt)
       }));
     } catch (error) {
-      console.error(error);
+      throw error;
     }
   }
 

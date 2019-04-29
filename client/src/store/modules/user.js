@@ -23,15 +23,15 @@ const getters = {
 const actions = {
   async getUserInfo({ commit }) {
     commit("isLoading", "IsLoading");
-    var response = await axios.get("api/current_user");
-    console.log("from store", response.data);
+    var response = await axios.get("/api/current_user");
+
     commit("setUser", response.data);
     try {
       var responseStation = await UserService.getMyStation({
         userId: state.user._id
       });
     } catch (error) {
-      console.error(error);
+      throw error;
     }
 
     commit("settingStation", responseStation);
@@ -40,25 +40,20 @@ const actions = {
   async getMyStation({ commit }) {
     commit("isLoading", "IsLoading");
     var responseStation = await UserService.getMyStation(state.user._id);
-    //console.log(`My station data: ${response}`);
     commit("settingStation", responseStation);
     commit("notLoading", "NotLoading");
   },
   async setMyStation({ commit }, stationId) {
     commit("isLoading", "IsLoading");
-    console.log("loading to set station");
-    console.log(state.user.assignedStation);
     if (state.user.assignedStation.length == 0) {
       try {
-        console.log("in try block");
         var response = await UserService.insertMyUserStation(
           state.user._id,
           stationId
         );
       } catch (error) {
-        throw console.error(error);
+        throw error;
       }
-      console.log("commiting station");
       commit("settingStation", stationId);
     }
     commit("notLoading", "NotLoading");
@@ -82,7 +77,6 @@ const actions = {
 
 const mutations = {
   setUser: (state, u) => {
-    console.log("setUser", u);
     state.user._id = u._id;
     state.user.googleId = u.googleId;
     state.user.firstName = u.firstName;
