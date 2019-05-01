@@ -26,6 +26,7 @@
     "cors": "^2.8.5",
     "express": "^4.16.4",
     "feather-icons": "^4.21.0",
+    "moment": "^2.24.0",
     "mongoose": "^5.4.21",
     "nodemon": "^1.18.10",
     "passport": "^0.4.0",

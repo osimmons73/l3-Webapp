@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const url = "/api/lockers";
+const url = "/api/lockers/";
 
 class LockerService {
   // Get Lockers
@@ -34,9 +34,14 @@ class LockerService {
       lockerName
     });
   }
+
+  static async activateLocker(id) {
+    return await axios.put(`${url}activate/${id}`);
+  }
+
   // Delete Locker
   static deleteLocker(id) {
-    return axios.delete(`${url}/${id}`);
+    return axios.delete(`${url}${id}`);
   }
 }
 

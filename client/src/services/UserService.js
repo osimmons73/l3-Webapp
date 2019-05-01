@@ -59,15 +59,18 @@ class UserService {
   }
 
   // Create My User-Locker Mapping
-  static insertMyUserLocker(userId, lockerId) {
-    return axios.post(LOCKER_BASE_URL, {
+  static async insertMyUserLocker(userId, schoolId, stationId, lockerId) {
+    return await axios.post(LOCKER_BASE_URL, {
       userId,
+      schoolId,
+      stationId,
       lockerId
     });
   }
+
   // Delete User-Station Mapping
-  static deleteMyUserLocker(id) {
-    return axios.delete(`${LOCKER_BASE_URL}${id}`);
+  static async deleteMyUserLocker(id) {
+    return await axios.delete(`${LOCKER_BASE_URL}${id}`);
   }
 }
 
