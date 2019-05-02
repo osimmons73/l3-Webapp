@@ -1,7 +1,7 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const moment = require("moment");
-
+var updateLockerStatus = require("../../services/lockerService");
 const UserLockerMap = mongoose.model("UserLockerMap");
 
 const router = express.Router();
@@ -11,9 +11,30 @@ router.get("/all", async (req, res) => {
   res.send(await UserLockerMap.find({}));
 });
 
-// Get User-Locker Mappings
-router.get("/:id", async (req, res) => {
+// Get User-Locker Mappings by userId and/or update lockerstatus
+router.get("/:id/:stationId", async (req, res) => {
   var userId = await req.params.id;
+  var stationId = await req.params.stationId;
+  var stationLockers = await UserLockerMap.find({
+    StationId: stationId
+  });
+  // var lockers = await UserLockerMap.find({
+  //   UserId: userId
+  // });
+  var toDeactivate = new Set([]);
+  var deactivateList = [];
+  var now = moment();
+
+  for (var i = 0; i < stationLockers.length; i++) {
+    var ended = moment(stationLockers[0]["EndAt"]);
+    var duration = moment.duration(ended.diff(now)).asMinutes();
+    if (duration < 0) {
+      // add to list to deactivate locker at this station
+      toDeactivate.add(stationLockers[0]["LockerId"]);
+    }
+  }
+  toDeactivate.forEach(v => deactivateList.push(v));
+  updateLockerStatus(deactivateList);
   res.send(
     await UserLockerMap.find({
       UserId: userId
