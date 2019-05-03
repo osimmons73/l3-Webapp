@@ -15,6 +15,7 @@ router.get("/all", async (req, res) => {
 router.get("/:id/:stationId", async (req, res) => {
   var userId = await req.params.id;
   var stationId = await req.params.stationId;
+  // get all lockers at current station
   var stationLockers = await UserLockerMap.find({
     StationId: stationId
   });
@@ -29,7 +30,7 @@ router.get("/:id/:stationId", async (req, res) => {
     var ended = moment(stationLockers[0]["EndAt"]);
     var duration = moment.duration(ended.diff(now)).asMinutes();
     if (duration < 0) {
-      // add to list to deactivate locker at this station
+      // add to list to deactivate locker at this station if locker expired
       toDeactivate.add(stationLockers[0]["LockerId"]);
     }
   }

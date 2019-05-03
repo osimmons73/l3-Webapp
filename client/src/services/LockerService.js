@@ -14,7 +14,7 @@ class LockerService {
     }
   }
   // Get Locker by Id
-  static async getLockersBySchoolId(id) {
+  static async getLockersByStationId(id) {
     try {
       const res = await axios.get(`${url}/${id}`);
       const data = res.data;

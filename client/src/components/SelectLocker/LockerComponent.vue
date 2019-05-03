@@ -66,14 +66,15 @@ export default {
         lockerId
       );
       await LockerService.activateLocker(lockerId);
-      this.lockers = await LockerService.getLockersBySchoolId(this.stationId);
+      this.lockers = await LockerService.getLockersByStationId(this.stationId);
     }
   },
   async created() {
     this.schoolId = this.$route.params.schoolId;
     this.stationId = this.$route.params.stationId;
     try {
-      this.lockers = await LockerService.getLockersBySchoolId(this.stationId);
+      await UserService.getMyStations(this.myUser._id, this.stationId);
+      this.lockers = await LockerService.getLockersByStationId(this.stationId);
     } catch (err) {
       this.error = err.message;
     }

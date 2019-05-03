@@ -44,13 +44,10 @@ class UserService {
       throw error;
     }
   }
-  // Get My User-Locker Mapping
-  static async getMyLocker(userId, lockerId) {
+  // Get User-Station Mappings and update locker's state if locker time expired
+  static async getMyStations(userId, stationId) {
     try {
-      const res = await axios.get(LOCKER_BASE_URL, {
-        userId,
-        lockerId
-      });
+      const res = await axios.get(`${LOCKER_BASE_URL}${userId}/${stationId}`);
       const data = res.data;
       return data;
     } catch (error) {
