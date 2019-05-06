@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const STATION_USER_BASE_URL = "/api/users/stations/";
+const STATION_USER_BASE_URL = "/api/users/stations";
 const LOCKER_BASE_URL = "/api/users/lockers/";
 class UserService {
   // Get All User-Station Mappings
@@ -44,10 +44,20 @@ class UserService {
       throw error;
     }
   }
-  // Get User-Station Mappings and update locker's state if locker time expired
-  static async getMyStations(userId, stationId) {
+  // update locker's state if locker time expired
+  static async updateLockersStatus(userId, stationId) {
     try {
       const res = await axios.get(`${LOCKER_BASE_URL}${userId}/${stationId}`);
+      const data = res.data;
+      return data;
+    } catch (error) {
+      throw error;
+    }
+  }
+  //  Get User-Station Mappings and
+  static async getMyStations(userId, stationId) {
+    try {
+      const res = await axios.get(`${LOCKER_BASE_URL}${userId}`);
       const data = res.data;
       return data;
     } catch (error) {

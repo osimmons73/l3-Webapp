@@ -3,6 +3,7 @@ const mongoose = require("mongoose");
 const moment = require("moment");
 var updateLockerStatus = require("../../services/lockerService");
 const UserLockerMap = mongoose.model("UserLockerMap");
+const Locker = mongoose.model("Locker");
 
 const router = express.Router();
 
@@ -10,12 +11,23 @@ const router = express.Router();
 router.get("/all", async (req, res) => {
   res.send(await UserLockerMap.find({}));
 });
-
-// Get User-Locker Mappings by userId and/or update lockerstatus
+// Get my User-Locker Mappings
+router.get("/:id", async (req, res) => {
+  userId = req.params.id;
+  res.send(
+    await UserLockerMap.find({
+      UserId: userId
+    })
+      .populate("SchoolId", "Name")
+      .populate("StationId", "Name")
+      .populate("LockerId", "LockerName IsUsed EndAt")
+  );
+});
+// update lockerstatus at this station
 router.get("/:id/:stationId", async (req, res) => {
   var userId = await req.params.id;
   var stationId = await req.params.stationId;
-  // get all lockers at current station
+  // get all lockers at current station via user-locker mapping
   var stationLockers = await UserLockerMap.find({
     StationId: stationId
   });
@@ -36,11 +48,7 @@ router.get("/:id/:stationId", async (req, res) => {
   }
   toDeactivate.forEach(v => deactivateList.push(v));
   updateLockerStatus(deactivateList);
-  res.send(
-    await UserLockerMap.find({
-      UserId: userId
-    })
-  );
+  res.status(200).send();
 });
 // Add User-Locker Mapping
 router.post("/", async (req, res) => {

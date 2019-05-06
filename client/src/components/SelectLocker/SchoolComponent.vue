@@ -44,7 +44,6 @@
 <script>
 import SchoolService from "../../services/SchoolService.js";
 import { mapGetters, mapActions } from "vuex";
-import UserService from "../../services/UserService.js";
 import Navbar from "../home/Navbar.vue";
 
 export default {

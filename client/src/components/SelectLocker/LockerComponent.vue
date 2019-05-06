@@ -72,8 +72,11 @@ export default {
   async created() {
     this.schoolId = this.$route.params.schoolId;
     this.stationId = this.$route.params.stationId;
+    console.log("school: ", this.schoolId);
+    console.log("station: ", this.stationId);
+    console.log("user: ", this.myUser._id);
     try {
-      await UserService.getMyStations(this.myUser._id, this.stationId);
+      await UserService.updateLockersStatus(this.myUser._id, this.stationId);
       this.lockers = await LockerService.getLockersByStationId(this.stationId);
     } catch (err) {
       this.error = err.message;

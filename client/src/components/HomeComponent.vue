@@ -71,9 +71,7 @@ export default {
   methods: {
     ...mapActions(["getUserInfo"])
   },
-  created() {
-    this.getUserInfo();
-  }
+  created() {}
 };
 </script>
 
