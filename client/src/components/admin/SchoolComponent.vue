@@ -1,5 +1,10 @@
 <template>
   <div class="container">
+    <section id="title">
+      <div class="container-fluid">
+        <Navbar/>
+      </div>
+    </section>
     <h1>Latest Schools here</h1>
     <a @click="$router.go(-1)">
       <p class="text">Back to Home</p>
@@ -66,8 +71,11 @@
 
 <script>
 import SchoolService from "../../services/SchoolService.js";
+import Navbar from "../home/Navbar.vue";
 export default {
   name: "SchoolComponent",
+  components: { Navbar },
+
   data() {
     return {
       schools: [],

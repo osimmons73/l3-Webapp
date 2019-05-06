@@ -4,6 +4,7 @@ const mongoose = require("mongoose");
 const Locker = mongoose.model("Locker");
 
 module.exports = async function(lockerIds) {
+  console.log(lockerIds);
   Lockers = await Locker.find({ _id: { $in: lockerIds } });
   const res = await Locker.updateMany(
     { _id: { $in: lockerIds } },

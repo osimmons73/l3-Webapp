@@ -14,13 +14,11 @@
     <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
       <ul class="navbar-nav ml-auto">
         <li class="nav-item">
-          <a class="nav-link" href>About</a>
+          <router-link role="button" :to="{ name: 'home'}">Home</router-link>
         </li>
+        <router-link role="button" :to="{ name: 'selectSchool'}">Select Locker</router-link>
         <li class="nav-item">
-          <a class="nav-link" href>Pricing</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href>Contact</a>
+          <router-link role="button" :to="{ name: 'inUse'}">My Lockers</router-link>
         </li>
         <li class="nav-item" v-if="myUser._id">
           <a class="nav-link" href="/api/logout">Sign Out</a>

@@ -20,7 +20,7 @@ import AdminStation from "./components/admin/StationComponent";
 import AdminLocker from "./components/admin/LockComponent";
 import Test from "./components/SelectLocker/Test.vue";
 const routes = [
-  { path: "/active", component: InUseComponent },
+  { path: "/active", name: "inUse", component: InUseComponent },
   { path: "/payment", component: PaymentComponent },
   {
     path: "/locker/:stationId/:schoolId",

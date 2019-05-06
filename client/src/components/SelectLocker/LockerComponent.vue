@@ -25,10 +25,13 @@
         v-bind:key="locker._id"
       >
         <div v-on:click="selectLocker(locker._id)">
-          <router-link to="/">
-            <p class="text">{{locker.LockerName}}</p>
-            <p class="text">Is in use: {{locker.IsUsed}}</p>
-          </router-link>
+          <div class="available" v-if="!locker.IsUsed">
+            <router-link to="/">
+              <p class="text">{{locker.LockerName}}</p>
+              <p class="text">Is in use: {{locker.IsUsed}}</p>
+              <p class="text">Detailed info : {{locker}}</p>
+            </router-link>
+          </div>
         </div>
       </div>
     </div>

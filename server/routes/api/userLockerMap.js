@@ -11,6 +11,11 @@ const router = express.Router();
 router.get("/all", async (req, res) => {
   res.send(await UserLockerMap.find({}));
 });
+// Get user-locker mapping by station id
+router.get("/station/:stationId", async (req, res) => {
+  var stationId = await req.params.stationId;
+  res.send(await UserLockerMap.find({ StationId: stationId }));
+});
 // Get my User-Locker Mappings
 router.get("/:id", async (req, res) => {
   userId = req.params.id;
@@ -37,13 +42,15 @@ router.get("/:id/:stationId", async (req, res) => {
   var toDeactivate = new Set([]);
   var deactivateList = [];
   var now = moment();
-
+  console.log("hit!");
   for (var i = 0; i < stationLockers.length; i++) {
     var ended = moment(stationLockers[0]["EndAt"]);
     var duration = moment.duration(ended.diff(now)).asMinutes();
     if (duration < 0) {
       // add to list to deactivate locker at this station if locker expired
       toDeactivate.add(stationLockers[0]["LockerId"]);
+      console.log(`lock ${i}: ${stationLockers[0]["LockerId"]}`);
+      console.log(`stay ${i} ${stationLockers[0]["StationId"]}`);
     }
   }
   toDeactivate.forEach(v => deactivateList.push(v));

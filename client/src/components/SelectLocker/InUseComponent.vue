@@ -25,6 +25,8 @@
               <div class="lockerStart">Expired at this time: {{new Date(locker.EndAt)}}</div>
               <div class="currentTime">Current Time is: {{new Date(datenow)}}</div>
               <div class="remainingTime">Time Remaining is: {{ momo(locker.EndAt)}}</div>
+              <div class="stationId">StationId: {{locker.StationId._id}}</div>
+              <div class="userId">UserId: {{locker.UserId}}</div>
             </div>
           </div>
         </div>

@@ -76,13 +76,13 @@ export default {
       } else {
         await LockerService.insertLocker(this.id, this.name);
         this.name = "";
-        this.lockers = await LockerService.getLockersBySchoolId(this.id);
+        this.lockers = await LockerService.getLockersByStationId(this.id);
       }
     },
     async deleteLocker(id) {
       try {
         await LockerService.deleteLocker(id);
-        this.lockers = await LockerService.getLockersBySchoolId(this.id);
+        this.lockers = await LockerService.getLockersByStationId(this.id);
       } catch (err) {
         this.error = err.message;
       }
@@ -91,7 +91,7 @@ export default {
   async created() {
     this.id = this.$route.params.id;
     try {
-      this.lockers = await LockerService.getLockersBySchoolId(this.id);
+      this.lockers = await LockerService.getLockersByStationId(this.id);
     } catch (err) {
       this.error = err.message;
     }
