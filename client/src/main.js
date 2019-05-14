@@ -9,28 +9,40 @@ Vue.config.productionTip = false;
 Vue.use(VueRouter);
 
 import HomeComponent from "./components/HomeComponent.vue";
-import StationComponent from "./components/StationComponent.vue";
-import LockerComponent from "./components/LockerComponent.vue";
-import PaymentComponent from "./components/PaymentComponent.vue";
-import InUseComponent from "./components/InUseComponent";
+import StationComponent from "./components/SelectLocker/StationComponent.vue";
+import LockerComponent from "./components/SelectLocker/LockerComponent.vue";
+import PaymentComponent from "./components/SelectLocker/PaymentComponent.vue";
+import InUseComponent from "./components/SelectLocker/InUseComponent";
+import SchoolComponent from "./components/SelectLocker/SchoolComponent";
 import Home from "./components/Home.vue";
-import School from "./components/admin/SchoolComponent";
-import Station from "./components/admin/StationComponent";
-import Locker from "./components/admin/LockComponent";
+import AdminSchool from "./components/admin/SchoolComponent";
+import AdminStation from "./components/admin/StationComponent";
+import AdminLocker from "./components/admin/LockComponent";
+import Test from "./components/SelectLocker/Test.vue";
 const routes = [
-  { path: "/active", component: InUseComponent },
+  { path: "/active", name: "inUse", component: InUseComponent },
   { path: "/payment", component: PaymentComponent },
-  { path: "/locker", component: LockerComponent },
   {
-    path: "/station",
+    path: "/locker/:stationId/:schoolId",
+    name: "selectLocker",
+    component: LockerComponent
+  },
+  { path: "/school", name: "selectSchool", component: SchoolComponent },
+  {
+    path: "/stations/:id",
+    name: "selectStation",
     component: StationComponent,
     meta: { requiresAuth: true }
   },
-  { path: "/test", component: Station },
-  { path: "/admin/school", name: "adminSchool", component: School },
-  { path: "/admin/stations/:id", name: "adminStation", component: Station },
-  { path: "/admin/lockers/:id", name: "adminLocker", component: Locker },
-  { path: "/", component: HomeComponent }
+  { path: "/test/case", component: Test },
+  { path: "/admin/school", name: "adminSchool", component: AdminSchool },
+  {
+    path: "/admin/stations/:id",
+    name: "adminStation",
+    component: AdminStation
+  },
+  { path: "/admin/lockers/:id", name: "adminLocker", component: AdminLocker },
+  { path: "/", name: "home", component: HomeComponent }
 ];
 
 const router = new VueRouter({

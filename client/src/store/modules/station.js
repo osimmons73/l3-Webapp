@@ -11,7 +11,7 @@ const getters = {
 const actions = {
   async getStations({ commit }) {
     var data = await StationService.getStation();
-    console.log("quick check", data);
+
     commit("setStations", data);
   }
 };

@@ -14,7 +14,6 @@
     <a @click="$router.go(-1)">
       <p class="text">Back to Stations</p>
     </a>
-
     <hr>
     <p class="error" v-if="error">{{error}}</p>
     <div class="school-container">
@@ -25,8 +24,15 @@
         v-bind:index="index"
         v-bind:key="locker._id"
       >
-        <p class="text">{{locker.LockerName}}</p>
-        <p class="text">Is in use: {{locker.IsUsed}}</p>
+        <div v-on:click="selectLocker(locker._id)">
+          <div class="available" v-if="!locker.IsUsed">
+            <router-link to="/">
+              <p class="text">{{locker.LockerName}}</p>
+              <p class="text">Is in use: {{locker.IsUsed}}</p>
+              <p class="text">Detailed info : {{locker}}</p>
+            </router-link>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -53,18 +59,28 @@ export default {
   computed: {
     ...mapGetters(["myUser"])
   },
-  // methods: {
-  //   ...mapActions(["getLockers", "setMyLocker"]),
-  //   selectLocker: async function(lockerId, event) {
-  //     // `this` inside methods points to the Vue instance
-  //     //await this.setMyLocker(lockerId);
-  //   }
-  // },
+  methods: {
+    // ...mapActions(["getLockers", "setMyLocker"]),
+    selectLocker: async function(lockerId) {
+      UserService.insertMyUserLocker(
+        this.myUser._id,
+        this.schoolId,
+        this.stationId,
+        lockerId
+      );
+      await LockerService.activateLocker(lockerId);
+      this.lockers = await LockerService.getLockersByStationId(this.stationId);
+    }
+  },
   async created() {
-    this.schoolId = this.$route.params.id;
+    this.schoolId = this.$route.params.schoolId;
     this.stationId = this.$route.params.stationId;
+    console.log("school: ", this.schoolId);
+    console.log("station: ", this.stationId);
+    console.log("user: ", this.myUser._id);
     try {
-      this.lockers = await LockerService.getLockersBySchoolId(this.stationId);
+      await UserService.updateLockersStatus(this.myUser._id, this.stationId);
+      this.lockers = await LockerService.getLockersByStationId(this.stationId);
     } catch (err) {
       this.error = err.message;
     }

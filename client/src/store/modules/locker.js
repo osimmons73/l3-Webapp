@@ -11,7 +11,7 @@ const getters = {
 const actions = {
   async getLockers({ commit }) {
     var data = await LockerService.getLocker();
-    console.log("quick check", data);
+
     commit("setLockers", data);
   }
 };

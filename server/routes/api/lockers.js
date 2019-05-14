@@ -9,18 +9,32 @@ const router = express.Router();
 router.get("/", async (req, res) => {
   res.send(await Locker.find({}));
 });
-// Get Locker by Id
+// Get Locker by station Id
 router.get("/:id", async (req, res) => {
   const stationId = await req.params.id;
   res.send(await Locker.find({ StationId: stationId }));
+});
+router.put("/activate/:id", async (req, res) => {
+  const lockerId = await req.params.id;
+  console.log(lockerId);
+  Locker.findOneAndUpdate({ _id: lockerId }, { IsUsed: true }, function(err) {
+    if (err) res.status(400).send();
+    res.status(200).send();
+  });
+});
+
+router.put("/deactivate/:id", async (req, res) => {
+  const lockerId = await req.params.id;
+  Locker.findOneAndUpdate({ _id: lockerId }, { IsUsed: false }, function(err) {
+    if (err) res.status(400).send();
+    res.status(200).send();
+  });
 });
 
 // Add Locker
 router.post("/", async (req, res) => {
   var StationId = await req.body.stationId;
   var LockerName = await req.body.lockerName;
-  console.log(`stationId is ${StationId}`);
-  console.log(`locker name is ${LockerName}`);
   var locker = new Locker({
     StationId: StationId,
     LockerName: LockerName,

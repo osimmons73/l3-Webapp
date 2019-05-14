@@ -12,15 +12,12 @@ router.get("/", async (req, res) => {
 // Get Stations by id
 router.get("/:id", async (req, res) => {
   const schoolId = req.params.id;
-  console.log("id is: ", schoolId);
   res.send(await Station.find({ AtSchoolId: schoolId }));
 });
 // Add Station
 router.post("/", async (req, res) => {
   var SchoolId = await req.body.schoolId;
   var Name = await req.body.name;
-  console.log(`schoolId is ${SchoolId}`);
-  console.log(`name is....${Name}`);
   var station = new Station({
     AtSchoolId: SchoolId,
     Name: Name,
