@@ -18,15 +18,17 @@
               v-for="locker in lockers"
               :key="locker._id"
             >
-              <div class="schoolName">School Name: {{locker.SchoolId.Name}}</div>
-              <div class="stationName">Station Name: {{locker.StationId.Name}}</div>
-              <div class="lockerName">Locker Name: {{locker.LockerId.LockerName}}</div>
-              <div class="lockerStatus">In Use: {{locker.LockerId.IsUsed}}</div>
-              <div class="lockerStart">Expired at this time: {{new Date(locker.EndAt)}}</div>
-              <div class="currentTime">Current Time is: {{new Date(datenow)}}</div>
-              <div class="remainingTime">Time Remaining is: {{ momo(locker.EndAt)}}</div>
-              <div class="stationId">StationId: {{locker.StationId._id}}</div>
-              <div class="userId">UserId: {{locker.UserId}}</div>
+              <div class="item" v-if="locker.LockerId">
+                <div class="schoolName">School Name: {{locker.SchoolId.Name}}</div>
+                <div class="stationName">Station Name: {{locker.StationId.Name}}</div>
+                <div class="lockerName">Locker Name: {{locker.LockerId.LockerName}}</div>
+                <div class="lockerStatus">In Use: {{locker.LockerId.IsUsed}}</div>
+                <!-- <div class="lockerStart">Expired at this time: {{new Date(locker.EndAt)}}</div> -->
+                <!-- <div class="currentTime">Current Time is: {{new Date(datenow)}}</div> -->
+                <!-- <div class="remainingTime">Time Remaining is: {{ momo(locker.EndAt)}}</div> -->
+                <div class="stationId">StationId: {{locker.StationId._id}}</div>
+                <div class="userId">UserId: {{locker.UserId}}</div>
+              </div>
             </div>
           </div>
         </div>
@@ -64,19 +66,20 @@ export default {
       setInterval(self.time, 500);
     },
     momo: function(date) {
-      var end = moment(date);
-      var start = moment(this.datenow);
-      var duration = moment.duration(end.diff(start));
-      // return moment(date).format("MMMM Do YYYY, h:mm:ss a");
-      return duration.minutes();
+      // var end = moment(date);
+      // var start = moment(this.datenow);
+      // var duration = moment.duration(end.diff(start));
+      // // return moment(date).format("MMMM Do YYYY, h:mm:ss a");
+      // return duration.minutes();
     }
   },
   filters: {},
   mounted: function() {
-    this.time();
+    //this.time();
   },
   async created() {
     await this.getUserInfo();
+    await UserService.updateLockersStatus();
     this.lockers = await UserService.getMyStations(this.myUser._id);
   }
 };

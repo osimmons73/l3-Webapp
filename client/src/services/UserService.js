@@ -45,9 +45,9 @@ class UserService {
     }
   }
   // update locker's state if locker time expired
-  static async updateLockersStatus(userId, stationId) {
+  static async updateLockersStatus() {
     try {
-      const res = await axios.get(`${LOCKER_BASE_URL}${userId}/${stationId}`);
+      const res = await axios.get(`${LOCKER_BASE_URL}updatelocker`);
       const data = res.data;
       return data;
     } catch (error) {

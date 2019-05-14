@@ -1,5 +1,10 @@
 <template>
   <div class="container">
+    <section id="title">
+      <div class="container-fluid">
+        <Navbar/>
+      </div>
+    </section>
     <h1>Latest Lockers here</h1>
     <!-- CREATE SCHOOL HERE -->
     <a @click="$router.go(-1)">
@@ -55,9 +60,13 @@
 
 <script>
 import LockerService from "../../services/LockerService.js";
+import Navbar from "../home/Navbar.vue";
+
 export default {
   name: "LockerComponent",
   props: ["Id"],
+  components: { Navbar },
+
   data() {
     return {
       lockers: [],
@@ -133,5 +142,8 @@ p.text {
   font-size: 22px;
   font-weight: 700;
   margin-bottom: 0;
+}
+#title {
+  background-color: #5bd658;
 }
 </style>

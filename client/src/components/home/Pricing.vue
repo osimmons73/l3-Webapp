@@ -51,7 +51,7 @@
           </div>
           <div class="card-body">
             <h2 class="price-text">$99 / mo</h2>
-            <p>Pirority Listing</p>
+            <p>Priority Listing</p>
             <p>Unlimited Locker Use</p>
             <p>Unlimited Minutes</p>
             <p>Unlimited App Usage</p>
