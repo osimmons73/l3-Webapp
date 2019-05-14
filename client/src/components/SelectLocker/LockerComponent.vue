@@ -29,7 +29,6 @@
             <router-link to="/">
               <p class="text">{{locker.LockerName}}</p>
               <p class="text">Is in use: {{locker.IsUsed}}</p>
-              <p class="text">Detailed info : {{locker}}</p>
             </router-link>
           </div>
         </div>
@@ -68,7 +67,6 @@ export default {
         this.stationId,
         lockerId
       );
-      await LockerService.activateLocker(lockerId);
       this.lockers = await LockerService.getLockersByStationId(this.stationId);
     }
   },
@@ -79,7 +77,7 @@ export default {
     console.log("station: ", this.stationId);
     console.log("user: ", this.myUser._id);
     try {
-      await UserService.updateLockersStatus(this.myUser._id, this.stationId);
+      await UserService.updateLockersStatus();
       this.lockers = await LockerService.getLockersByStationId(this.stationId);
     } catch (err) {
       this.error = err.message;

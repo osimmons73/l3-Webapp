@@ -15,9 +15,9 @@
         </div>
       </button>
     </div>
-    <div class="col-lg-6 col-md-12">
+    <!-- <div class="col-lg-6 col-md-12">
       <img class="title-image" src="../../assets/images/l3iphone.png" alt="iphone-mockup">
-    </div>
+    </div>-->
   </div>
 </template>
 

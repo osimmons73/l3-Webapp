@@ -20,14 +20,29 @@ import AdminStation from "./components/admin/StationComponent";
 import AdminLocker from "./components/admin/LockComponent";
 import Test from "./components/SelectLocker/Test.vue";
 const routes = [
-  { path: "/active", name: "inUse", component: InUseComponent },
-  { path: "/payment", component: PaymentComponent },
+  {
+    path: "/active",
+    name: "inUse",
+    component: InUseComponent,
+    meta: { requiresAuth: true }
+  },
+  {
+    path: "/payment",
+    component: PaymentComponent,
+    meta: { requiresAuth: true }
+  },
   {
     path: "/locker/:stationId/:schoolId",
     name: "selectLocker",
-    component: LockerComponent
+    component: LockerComponent,
+    meta: { requiresAuth: true }
   },
-  { path: "/school", name: "selectSchool", component: SchoolComponent },
+  {
+    path: "/school",
+    name: "selectSchool",
+    component: SchoolComponent,
+    meta: { requiresAuth: true }
+  },
   {
     path: "/stations/:id",
     name: "selectStation",
@@ -35,13 +50,21 @@ const routes = [
     meta: { requiresAuth: true }
   },
   { path: "/test/case", component: Test },
-  { path: "/admin/school", name: "adminSchool", component: AdminSchool },
+  {
+    path: "/admin/school",
+    name: "adminSchool",
+    component: AdminSchool
+  },
   {
     path: "/admin/stations/:id",
     name: "adminStation",
     component: AdminStation
   },
-  { path: "/admin/lockers/:id", name: "adminLocker", component: AdminLocker },
+  {
+    path: "/admin/lockers/:id",
+    name: "adminLocker",
+    component: AdminLocker
+  },
   { path: "/", name: "home", component: HomeComponent }
 ];
 

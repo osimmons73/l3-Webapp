@@ -15,14 +15,14 @@
     </section>
 
     <!-- Testimonials -->
-    <section id="testimonials">
+    <!-- <section id="testimonials">
       <Testimonials/>
-    </section>
+    </section>-->
 
     <!-- Press -->
-    <section id="press">
+    <!-- <section id="press">
       <Press/>
-    </section>
+    </section>-->
 
     <!-- Pricing -->
     <section class="white-section" id="pricing">

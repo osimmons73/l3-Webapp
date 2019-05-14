@@ -1,7 +1,7 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const moment = require("moment");
-var updateLockerStatus = require("../../services/lockerService");
+var LockerService = require("../../services/lockerService");
 const UserLockerMap = mongoose.model("UserLockerMap");
 const Locker = mongoose.model("Locker");
 
@@ -20,41 +20,63 @@ router.get("/station/:stationId", async (req, res) => {
 router.get("/:id", async (req, res) => {
   userId = req.params.id;
   res.send(
-    await UserLockerMap.find({
-      UserId: userId
-    })
-      .populate("SchoolId", "Name")
-      .populate("StationId", "Name")
-      .populate("LockerId", "LockerName IsUsed EndAt")
+    UserLockerMap.aggregate([
+      {
+        $lookup: {
+          from: "School",
+          foreignField: "SchoolId",
+          as: "map_docs"
+        }
+      },
+      {
+        $match: {
+          map_docs: { $ne: [] }
+        }
+      }
+    ])
   );
+  // res.send(
+  //   await UserLockerMap.find({
+  //     UserId: userId
+  //   })
+
+  //     .populate("SchoolId")
+  //     .populate("StationId")
+  //     .populate({
+  //       "LockerId",
+  //       match: {
+  //         IsUsed: true
+  //       }
+  //     })
+  //   //.populate("LockerId", "LockerName IsUsed EndAt")
+  // );
 });
 // update lockerstatus at this station
-router.get("/:id/:stationId", async (req, res) => {
-  var userId = await req.params.id;
-  var stationId = await req.params.stationId;
+router.get("/updatelocker", async (req, res) => {
+  // var userId = await req.params.id;
+  // var stationId = await req.params.stationId;
   // get all lockers at current station via user-locker mapping
-  var stationLockers = await UserLockerMap.find({
-    StationId: stationId
-  });
+  var stationLockers = await UserLockerMap.find({});
   // var lockers = await UserLockerMap.find({
   //   UserId: userId
   // });
   var toDeactivate = new Set([]);
   var deactivateList = [];
   var now = moment();
-  console.log("hit!");
+  // console.log("hit!");
   for (var i = 0; i < stationLockers.length; i++) {
-    var ended = moment(stationLockers[0]["EndAt"]);
+    var ended = moment(stationLockers[i]["EndAt"]);
     var duration = moment.duration(ended.diff(now)).asMinutes();
+    // console.log(i, "time left: ", duration);
     if (duration < 0) {
       // add to list to deactivate locker at this station if locker expired
-      toDeactivate.add(stationLockers[0]["LockerId"]);
-      console.log(`lock ${i}: ${stationLockers[0]["LockerId"]}`);
-      console.log(`stay ${i} ${stationLockers[0]["StationId"]}`);
+      toDeactivate.add(stationLockers[i]["LockerId"]);
+      // console.log(`lock ${i}: ${stationLockers[i]["LockerId"]}`);
+      // console.log(`stay ${i} ${stationLockers[i]["StationId"]}`);
     }
   }
   toDeactivate.forEach(v => deactivateList.push(v));
-  updateLockerStatus(deactivateList);
+  LockerService.DowngradeLockerStatus(deactivateList);
   res.status(200).send();
 });
 // Add User-Locker Mapping
@@ -76,6 +98,7 @@ router.post("/", async (req, res) => {
     StartedAt: now,
     EndAt: end
   });
+  LockerService.UpgradeLockerStatus(lockerId);
   userLockerMap.save(function(err) {
     if (err) res.status(400).send();
     res.status(201).send();
